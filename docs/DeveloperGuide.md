@@ -246,6 +246,45 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+### Implementation of Single, optional Appointment Field
+
+#### Proposed Implementation
+
+_{Explain how `Appointment` as an optional field is implemented}_
+
+_{Explain how `Appointment` is stored inside each `Person`}_
+
+#### Design Considerations:
+
+**Aspect: Parsing of `Appointment` Field**
+
+* **Alternative 1 (current choice):** Use of the single `ap/` flag.
+  * Pros: Easy to input on the user-end.
+  * Cons: Hard to separate time fields, could be troublesome to implement a parse format string.
+
+* **Alternative 2:** Use of 2 flags to denote start and end time for appointment.
+  * Pros: Immediate clarity on what fields to implement, and how to parse input string.
+  * Cons: Strong dependence between 2 flags requires more fail-state management.
+
+**Aspect: Value to store `Appointment` as**
+
+* **Alternative 1 (current choice):** Use of raw `String` format for Appointment
+  * Pros: Far easier to parse and store as an object.
+  * Cons: Hard to extend upon in future use-cases, such as reminders, etc.
+
+* **Alternative 2:** Use of `DateTime`-related objects for Appointment
+  * Pros: More direct paths of feature extension in the long run.
+  * Cons: Translation to and from `DateTime` objects can be non-trivial.
+
+We are currently in the process of switching to Alternative 2, as Alternative 1 was chosen primarily for its
+fast implementation for the MVP.
+
+### Addition of Interface for Find-type commands
+
+#### Proposed Implementation
+
+_{Explain how there is overlap in function for `find`, `delete`, `edit`}_
+
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_

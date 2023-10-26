@@ -36,9 +36,9 @@ organise and manage patient details faster than traditional GUI apps.
 
    * `list` : Lists all patients.
 
-   * `add n/John Doe id/S8943782H p/98114839` : Adds a patient named `John Doe` to HealthSync.
+   * `add n/John Doe id/S8943782H p/98114839` : Adds a patient named `John Doe` with the relevant field details to HealthSync.
 
-   * `delete n/Alex Yeoh` : Deletes Alex Yeoh details from the current list.
+   * `delete n/Alex Yeoh` : Deletes Alex Yeoh's details from the current list.
 
    * `clear` : Deletes all patients.
 
@@ -99,10 +99,12 @@ The 2 identifying parameters of a patient are given below:
 | `start/` | Appointment Start Time | `start/Nov 11, 9AM`   | `start/APPT_START`       | Must be paired with `/end`      |
 | `end/`   | Appointment End Time   | `end/Nov 11, 12PM`    | `end/APPT_END`           | Must be paired with `/start`    |
 
+
 ### Auto Save
 
 HealthSync data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
+
 
 ### Viewing help: `help`
 
@@ -131,11 +133,13 @@ Expected outputs when the command fails:
  * `Unable to add the patient to the database: Patient already exists.`
  * `Unable to add the patient to the database: IC required.`
 
+
 ### Listing all persons: `list`
 
 Shows a list of all persons in the address book.
 
 Format: `list`
+
 
 ### Editing a patient's details: `edit`
 
@@ -152,17 +156,16 @@ Format: `edit n/NAME or id/IC_NUMBER [field] ...`
 Example commands:
  * `edit n/John Doe p/91234567 e/johndoe@example.com`
 
-
 Expected outputs when the command succeeds:
 * `Patient John Doe has been updated with the fields:  p/91234567 e/johndoe@example.com`
 
 Expected outputs when command fails:
 * `Unable to edit the patient: Patient identification does not exist.`
 
-### Locating persons by name: `find`
 
-Enables front desk workers to quickly retrieve patient information based on command executed.
-The function returns all the patient’s related information.
+### Locating persons by name or NRIC: `find`
+
+Searches the patient list for all patients matching the name or NRIC and returns their related information.
 
  * The search is case-insensitive. e.g `hans` will match `Hans`.
  * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
@@ -171,8 +174,7 @@ The function returns all the patient’s related information.
  * For the name, only persons matching at least one keyword will be returned (i.e. `OR` search).
    e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
 
-Formats:
- 1. `find n/NAME` *or* `id/IC_NUMBER`
+Format: `find n/NAME` *or* `id/IC_NUMBER`
 
 Example commands:
 * `find n/John` returns `john` and `John Doe`
@@ -181,12 +183,29 @@ Example commands:
 
   ![result for 'find id/S872D'](images/findidS872DResult.png)
 
-
 Expected outputs when the command succeeds:
  * `Patient n/NAME or id/IC_NUMBER: [field] …`
 
 Expected output when the command fails:
  * `Unable to find the patient. Check if the patient’s information is correct.`
+
+
+### Preserving a `find` command result: `save`
+
+Logs the result of the find command to the logger tab, which can be viewed at all times.
+
+* Saving to the logger tab only works for results of the `find` command.
+* The entire result will be saved.
+* The result will be saved in the same order and format.
+* Saving a new result clears the current saved result from the logger tab and replaces it.
+
+Format: `save`
+
+Expected outputs when the command succeeds:
+* `Results have been saved to the logger tab.`
+
+Expected output when the command fails:
+* `Unable to save to the logger tab. Check if a find command was entered prior.`
 
 
 ### Deleting a person or field: `delete`
@@ -205,7 +224,6 @@ Example commands:
 * `delete n/John Doe` deletes all the details of John Doe from HealthSync.
 * `delete n/John Doe p/` deletes John Doe phone number from his profile.
 
-
 Expected outputs when the command succeeds:
  * `Patient n/NAME or id/IC_NUMBER has been removed from the database`
  * `The [field] of Patient n/NAME or id/IC_NUMBER has been removed from the database`
@@ -219,17 +237,20 @@ list followed by delete 2 deletes the 2nd person in the address book.
 find Betsy followed by delete 1 deletes the 1st person in the results of the find command.
 -->
 
+
 ### Delete all patients: `clear`
 
 Deletes all patients from the program.
 
 Format: `clear`
 
+
 ### Exiting the program: `exit`
 
 Exits the program.
 
 Format: `exit`
+
 
 ### Editing the data file
 
